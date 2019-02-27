@@ -75,9 +75,7 @@
         format : "json"
       }
     })
-    // Ajaxリクエストが成功した時発動
-    .done( (data) => {
-
+    .then(function(data){
       var result = data.results.bindings;
 
       var markers = L.markerClusterGroup();
@@ -102,7 +100,7 @@
         var contents = '<div>';
         contents += '<h5 class="mt-0"><a href="'+url+'" target="_blank">'+title+'</a></h5>';
         contents += '</div>';
-
+        
         marker.bindPopup(contents);
         markers.addLayer(marker);
       }
@@ -121,16 +119,8 @@
       mymap.on('click', onMapClick);
 
       mymap.panTo(new L.LatLng(mlat / result.length, mlong / result.length));
-
     })
-    // Ajaxリクエストが失敗した時発動
-    .fail( (data) => {
-      alert(data.statusText);
-    })
-    // Ajaxリクエストが成功・失敗どちらでも発動
-    .always( (data) => {
 
-    });
   }
 
 
