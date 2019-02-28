@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>D3 Zoomable Sunburst</title>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@observablehq/notebook-inspector@1/dist/notebook-inspector-style.css">
+<body>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="module">
+
+  import {Inspector, Runtime} from "https://unpkg.com/@observablehq/notebook-runtime@1?module";
+  import notebook from "./d3-zoomable-sunburst.js";
+
+  Runtime.load(notebook, Inspector.into(document.body));
+
+</script>
