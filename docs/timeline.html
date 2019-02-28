@@ -1,0 +1,217 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Timeline search</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container">
+        <a class="navbar-brand">Timeline search</a>
+        <!-- Links -->
+        <div id="navbarSupportedContent">
+          <!-- Left -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="./">HOME</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--/.Navbar-->
+  </header>
+
+  <div class="my-5 container">
+
+    <p>
+      <ul>
+        <li>The date whose format is "https://jpsearch.go.jp/entity/time/YYYY" is only used.</li>
+        <li>Items before 100 is not used due to the library's constraints.</li>
+      </ul>
+    </p>
+
+    <div id="visualization"></div>
+
+    <p class="mt-2 text-center">Double click to search items</p>
+
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you search
+            <span id="value"></span> with Japan Search?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-mdb-color" data-dismiss="modal">Cancel</button>
+          <a id="link" target="_blank" class="btn btn-primary">Japan Search</a>
+          <a id="link2" target="_blank" class="btn btn-secondary">SPARQL Endpoint</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer text-center font-small mdb-color darken-2 mt-5 fadeIn">
+    <!--Copyright-->
+    <div class="footer-copyright py-5">
+      <a href="https://researchmap.jp/nakamura.satoru/?lang=english">Satoru Nakamura</a>.
+    </div>
+    <!--/.Copyright-->
+  </footer>
+  <link href="assets/thirdparty/vis/4.15.1/vis.min.css" rel="stylesheet" type="text/css" />
+  <script src="assets/thirdparty/vis/4.15.1/vis.min.js"></script>
+  <script type="text/javascript">
+
+  var map = {}
+
+  var graph2d;
+
+  jQuery(document).ready(function() {
+
+    jQuery.ajaxSetup({
+      cache : true
+    });
+
+    search()
+
+  });
+
+  var map = {}
+
+  function search() {
+
+    var query = " select distinct ?t count(?s) as ?c  ";
+    query += " WHERE { ";
+    query += " ?s <http://schema.org/temporal> ?t . ";
+    query += " } order by desc(?c) ";
+
+    $.ajax({
+      url:"https://jpsearch.go.jp/rdf/sparql",
+      type:'GET',
+      data:{
+        query : query,
+        format : "json"
+      }
+    })
+    .then(
+      // 1つめは通信成功時のコールバック
+      function (data) {
+
+        var result = data.results.bindings;
+
+
+
+        for (var i = 0; i < result.length; i++) {
+          var obj = result[i];
+          var t = obj.t.value
+          t = t.replace("https://jpsearch.go.jp/entity/time/", "")
+          if($.isNumeric(t)){
+
+            t = Number(t)
+
+            if(t < 100){
+              continue
+            }
+
+            x = t+"-01-01"
+
+            if(!map[x]){
+              map[x] = 0
+            }
+
+            map[x] = map[x] + Number(obj.c.value)
+
+          }
+        }
+
+        var groups = new vis.DataSet();
+
+        var items = []
+
+        for (var key in map) {
+          var tmp = {}
+          tmp.x = key
+          tmp.y = map[key]
+          tmp.group = "item"
+          items.push(tmp)
+        }
+        groups.add({
+          id: "item",
+          content: "item"//+"："+total
+        })
+
+        displayTimeline(items, groups)
+      },
+      // 2つめは通信失敗時のコールバック
+      function () {
+        alert(data.statusText);
+      }
+    ).always(function() {
+      $("#loading").empty()
+    });
+  }
+
+  function displayTimeline(items, groups){
+
+    var container = document.getElementById('visualization');
+
+    var dataset = new vis.DataSet(items);
+    var options = {
+      defaultGroup: 'ungrouped',
+      style:'bar',
+      stack : true,
+      barChart: {
+        //width: width,
+        align:'right'
+      }, // align: left, center, right
+      drawPoints: false,
+      dataAxis: {
+        icons:true
+      },
+      legend: true,
+      orientation:'top'
+    };
+    graph2d = new vis.Graph2d(container, items, groups, options);
+    graph2d.on('doubleClick', onClick);
+
+  }
+
+  function onClick(properties) {
+
+    $('#myModal').modal()
+
+    var dd = new Date(properties.time);
+
+    var year = dd.getFullYear();
+
+    var link = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-tempo="+year
+    var link2 = "https://jpsearch.go.jp/rdf/sparql?default-graph-uri=&query=select+distinct+%3Fs+%3Ft%0D%0Awhere+%7B%0D%0A%3Fs+%3Chttp%3A%2F%2Fschema.org%2Ftemporal%3E+%3Ft+.%0D%0Afilter+%28%3Ft+%3D+%3Chttps%3A%2F%2Fjpsearch.go.jp%2Fentity%2Ftime%2F"+year+"%3E+%29%0D%0A%7D"
+
+
+    $("#link").attr("href", encodeURI(link))
+    $("#link2").attr("href", link2)
+    $("#value").text("items in "+year)
+
+
+  }
+
+  </script>
+</body>
+</html>
