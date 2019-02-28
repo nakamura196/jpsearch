@@ -91,6 +91,7 @@
         var obj = result[i];
         var s = obj.s.value
         var title = obj.label.value
+        var jps = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-loc="+encodeURIComponent(title)
         var url = "https://jpsearch.go.jp/rdf/sparql/?default-graph-uri=&query=select+distinct+%3Flabel+%3FjapanSearchLink+%3Fprovider+%0D%0Awhere+%7B%0D%0A%3Fs+%3Chttp%3A%2F%2Fschema.org%2Fspatial%3E+%3C"+s+"%3E+.++%0D%0A%3Fs+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Flabel.+%0D%0A%3Fs+%3Chttps%3A%2F%2Fjpsearch.go.jp%2Fterm%2Fproperty%23sourceInfo%3E+%3FsourceInfo+.++%0D%0A%3FsourceInfo++%3Chttp%3A%2F%2Fschema.org%2FrelatedLink%3E+%3FjapanSearchLink+.+%0D%0A%3FsourceInfo++%3Chttp%3A%2F%2Fschema.org%2Fprovider%3E+%3Fp+.+%0D%0A%3Fp+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Fprovider+.+%0D%0A%7D"
         var marker = L.marker(new L.LatLng(obj.lat.value, obj.long.value), { title: title });
 
@@ -98,9 +99,10 @@
         mlong += Number(obj.long.value);
 
         var contents = '<div>';
-        contents += '<h5 class="mt-0"><a href="'+url+'" target="_blank">'+title+'</a></h5>';
+        contents += '<h5>'+title+'</h5>';
+        contents += "<p><a class='btn btn-primary' href='"+jps+"' target='_blank'>View at Japan Search</a> <a class='btn btn-secondary' href='"+url+"' target='_blank'>View at SPARQL Endpoint</a></p>"
         contents += '</div>';
-        
+
         marker.bindPopup(contents);
         markers.addLayer(marker);
       }
