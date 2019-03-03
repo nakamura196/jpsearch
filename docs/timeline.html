@@ -158,7 +158,13 @@ layout: default
     var year = dd.getFullYear();
 
     var link = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-tempo="+year
-    var link2 = "https://jpsearch.go.jp/rdf/sparql/easy/?default-graph-uri=&query=select+distinct+%3Fs+%3Ft%20where+%7B%0D%0A%3Fs+%3Chttp%3A%2F%2Fschema.org%2Ftemporal%3E+%3Ft+.%0D%0Afilter+%28%3Ft+%3D+%3Chttps%3A%2F%2Fjpsearch.go.jp%2Fentity%2Ftime%2F"+year+"%3E+%29%0D%0A%7D"
+
+    var query = " select distinct ?s ?t where { "
+    query += " ?s <http://schema.org/temporal> ?t .  "
+    query += " filter (?t = <https://jpsearch.go.jp/entity/time/" +year+ "> ) "
+    query += " }"
+
+    var link2 = "https://jpsearch.go.jp/rdf/sparql/easy/?query="+encodeURIComponent(query)
 
 
     $("#link").attr("href", encodeURI(link))

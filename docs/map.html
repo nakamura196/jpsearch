@@ -68,7 +68,18 @@ layout: default
         var s = obj.s.value
         var title = obj.label.value
         var jps = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-loc="+encodeURIComponent(title)
-        var url = "https://jpsearch.go.jp/rdf/sparql/easy/?query=select+distinct+%3Flabel+%3Fs+%3Fprovider+where+%7B%0D%0A%3Fs+%3Chttp%3A%2F%2Fschema.org%2Fspatial%3E+%3C"+s+"%3E+.++%0D%0A%3Fs+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Flabel.+%0D%0A%3Fs+%3Chttps%3A%2F%2Fjpsearch.go.jp%2Fterm%2Fproperty%23sourceInfo%3E+%3FsourceInfo+.++%0D%0A%3FsourceInfo++%3Chttp%3A%2F%2Fschema.org%2Fprovider%3E+%3Fp+.+%0D%0A%3Fp+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Fprovider+.+%0D%0A%7D"
+
+        var query = " select distinct ?label ?s ?provider where { "
+        query += " ?s <http://schema.org/spatial> <" +s+ "> .  "
+        query += " ?s <http://www.w3.org/2000/01/rdf-schema#label> ?label. "
+        query += " ?s <https://jpsearch.go.jp/term/property#sourceInfo> ?sourceInfo .  "
+        query += " ?sourceInfo  <http://schema.org/provider> ?p . "
+        query += " ?p <http://www.w3.org/2000/01/rdf-schema#label> ?provider . "
+        query += " }"
+
+        var url = "https://jpsearch.go.jp/rdf/sparql/?query="+encodeURIComponent(query)
+        var url2 = "https://jpsearch.go.jp/rdf/sparql/easy/?query="+encodeURIComponent(query)
+
         var marker = L.marker(new L.LatLng(obj.lat.value, obj.long.value), { title: title });
 
         mlat += Number(obj.lat.value);
@@ -76,7 +87,7 @@ layout: default
 
         var contents = '<div>';
           contents += '<h5 class="mt-0">'+title+'</h5>';
-          contents += "<p><a href='"+jps+"' class='btn btn-primary m-1' style='color : white;' target='_blank'>View at Japan Search <i class='fas fa-external-link-alt'></i></a> <a href='"+url+"' class='btn btn-secondary m-1' style='color : white;' target='_blank'>View at Snorql <i class='fas fa-external-link-alt'></i></a></p>"
+          contents += "<p><a href='"+jps+"' class='btn btn-primary m-1' style='color : white;' target='_blank'>View at Japan Search <i class='fas fa-external-link-alt'></i></a> <a href='"+url+"' class='btn btn-secondary m-1' style='color : white;' target='_blank'>View at SPARQL Endpoint <i class='fas fa-external-link-alt'></i></a> <a href='"+url2+"' class='btn btn-secondary m-1' style='color : white;' target='_blank'>View at Snorql <i class='fas fa-external-link-alt'></i></a></p>"
           contents += '</div>';
 
           marker.bindPopup(contents);
@@ -100,4 +111,4 @@ layout: default
       })
 
     }
-</script>
+  </script>

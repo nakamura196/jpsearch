@@ -136,7 +136,7 @@ title: Properties
                           } else {
                             value = "'"+value+"'"
                           }
-
+                          
                           var p = this.series.chart.title.textStr
 
                           var link = "https://jpsearch.go.jp/rdf/sparql/easy/?query="+encodeURIComponent("select distinct * where { ?s rdfs:label ?label . ?s "+p+" "+value+"}")
