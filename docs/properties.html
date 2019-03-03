@@ -1,0 +1,185 @@
+---
+layout: default
+title: Properties
+---
+<div class="py-5 bg-light">
+  <div class="container">
+    <h2>Top 20 values in properties</h2>
+    <p>Click bars to search items</p>
+    <div id="main" class="my-5"></div>
+    <div class="text-center" id="loading"> <img src="assets/images/loading.gif" class="img-fluid" /> </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you search <span id="value"></span>with Japan Search? </p>
+      </div>
+      <div class="modal-footer">
+        <a id="link" target="_blank" class="btn btn-primary" style="color : white;">Snorql
+          <i class='fas fa-external-link-alt'></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script>
+  jQuery(document).ready(function() {
+
+    $.ajax({
+      url:'data/properties.json'
+    })
+    .then(
+    // 1つめは通信成功時のコールバック
+    function (result) {
+
+      count = 0
+      for(var v in result){
+
+        histgram = result[v]
+
+        if($.isEmptyObject(histgram)){
+          continue
+        }
+
+        count += 1
+
+        var card = $('<div class="card mb-5">');
+
+          $("#main").append(card);
+
+          var body = $('<div class="card-body">');
+
+            card.append(body);
+
+            body.append($("<div id='container_"+count+"'>"));
+
+              keysSorted = Object.keys(histgram).sort(function(a,b){return histgram[b]-histgram[a]})
+              keys = []
+              values = []
+
+              var max = keysSorted.length
+
+              var other = 0
+
+              if(max > 50){
+                for(j = 0; j < max; j++){
+                  var c = histgram[keysSorted[j]]
+                  if(c > 10){
+                    keys.push(keysSorted[j])
+                    values.push(c)
+                  } else {
+                    other += c
+                  }
+                }
+
+                keys.push("その他")
+                values.push(other)
+
+              } else {
+                for(j = 0; j < max; j++){
+                  var c = histgram[keysSorted[j]]
+                  keys.push(keysSorted[j])
+                  values.push(c)
+                }
+              }
+
+              Highcharts.chart('container_'+count, {
+                chart: {
+                  type: 'bar'
+                },
+                title: {
+                  text: v
+                },
+                xAxis: {
+                  categories: keys,
+                  title: {
+                    text: null
+                  }
+                },
+                yAxis: {
+                  min: 0,
+                  title: {
+                    text: 'Number of items',
+                    align: 'high'
+                  },
+                  labels: {
+                    overflow: 'justify'
+                  }
+                },
+                tooltip: {
+                  valueSuffix: ' items'
+                },
+                plotOptions: {
+                  bar: {
+                    dataLabels: {
+                      enabled: true
+                    }
+                  },
+                  series: {
+                    cursor: 'pointer',
+                    point: {
+                      events: {
+                        click: function () {
+                          var value = this.category
+
+                          if(value.startsWith("http")){
+                            value = "<"+value+">"
+                          } else {
+                            value = "'"+value+"'"
+                          }
+
+                          var p = this.series.chart.title.textStr
+
+                          var link = "https://jpsearch.go.jp/rdf/sparql/easy/?query="+encodeURIComponent("select distinct * where { ?s rdfs:label ?label . ?s "+p+" "+value+"}")
+
+                          $("#info").empty()
+                          $("#link").attr("href", link)
+                          $("#value").text(value+" in "+p)
+                          $('#myModal').modal()
+                        }
+                      }
+                    }
+                  }
+                },
+                legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'top',
+                  x: -40,
+                  y: 80,
+                  floating: true,
+                  borderWidth: 1,
+                  backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                  shadow: true
+                },
+                credits: {
+                  enabled: false
+                },
+                series: [{
+                  name: 'Item',
+                  data: values
+                }]
+              });
+            }
+
+
+          },
+          // 2つめは通信失敗時のコールバック
+          function () {
+            alert(data.statusText);
+          }
+          ).always(function() {
+            $("#loading").empty()
+          });
+
+        })
+      </script>
