@@ -1,0 +1,70 @@
+---
+title: Class Hierarchy
+layout: default
+---
+<div class="py-5 bg-light">
+  <div class="container">
+
+
+    <h2 class="mb-5">Class Hierarchy</h2>
+
+    <div id="using_json_2"></div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.2/themes/default/style.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.2/jstree.min.js"></script>
+
+<script>
+  jQuery(document).ready(function () {
+    showTree();
+  });
+
+  function showTree() {
+
+
+    var query = " SELECT DISTINCT ?s ?o ";
+    query += " WHERE { ";
+    query += " ?s rdfs:subClassOf ?o .  ";
+    query += " FILTER(strstarts(str(?o), \"https://jpsearch.go.jp/term/type/\")) ";
+    query += " } ";
+
+    $.ajax({
+      url: "https://jpsearch.go.jp/rdf/sparql",
+      type: 'GET',
+      data: {
+        query: query,
+        format: "json"
+      }
+    })
+      .then(function (data) {
+        var result = data.results.bindings;
+
+        var data = []
+
+        for (var i = 0; i < result.length; i++) {
+          var obj = result[i]
+          var parent = obj.o.value == "https://jpsearch.go.jp/term/type/記述情報" ? "#" : obj.o.value
+          var row = {
+            "id": obj.s.value,
+            "parent": parent,
+            "text": obj.s.value.replace("https://jpsearch.go.jp/term/type/", "")
+          }
+          data.push(row)
+        }
+
+        $('#using_json_2').on('changed.jstree', function (e, data) {
+          var i, j, r = [];
+          for (i = 0, j = data.selected.length; i < j; i++) {
+            r.push(data.instance.get_node(data.selected[i]).id);
+          }
+          window.open("https://jpsearch.go.jp/rdf/sparql/easy/?describe=" + r.join(', '), '_blank');
+        }).jstree({
+          'core': {
+            'data': data
+          }
+        });
+      })
+
+  }
+</script>
