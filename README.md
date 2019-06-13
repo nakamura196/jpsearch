@@ -9,6 +9,7 @@ Applications with Japan Search SPARQL Endpoint
 * [Top 20 values in properties](https://nakamura196.github.io/jpsearch/properties)
 * [Databases](https://nakamura196.github.io/jpsearch/databases)
 * [Providing Organizations](https://nakamura196.github.io/jpsearch/providers)
+* [Gallery Prototype](https://nakamura196.github.io/jpsearch2/index#/)
 
 ## Batch
 * [Visualization powered by Public Domain Release 2016 - The New York Public Library](https://nakamura196.github.io/vis_jps/)
