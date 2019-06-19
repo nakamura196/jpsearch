@@ -7,6 +7,7 @@ Applications with Japan Search SPARQL Endpoint
 * [Class Hierarchy](https://nakamura196.github.io/jpsearch/tree)
 * [Histogram](https://nakamura196.github.io/jpsearch/timeline)
 * [Gallery Prototype](https://nakamura196.github.io/jpsearch2/index#/)
+* [Quiz](https://nakamura196.github.io/jpsearch/quiz)
 * [Providing Organizations](https://nakamura196.github.io/jpsearch/providers_oneline)
 
 ## Batch
