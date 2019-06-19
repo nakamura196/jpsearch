@@ -1,10 +1,10 @@
 ---
-title: Timeline Search
+title: Histogram
 layout: default
 ---
 <div class="py-5 bg-light">
   <div class="container">
-    <h2 class="mb-5">Timeline Search</h2>
+    <h2 class="mb-5">Histogram</h2>
     <p>
       <ul>
         <li>The date whose format is "https://jpsearch.go.jp/entity/time/YYYY" is only used. </li>
@@ -27,7 +27,9 @@ layout: default
         <div class="modal-body">
           <p>Do you search <span id="value"></span> with Japan Search? </p>
         </div>
-        <div class="modal-footer"> <a id="link" target="_blank" class="btn btn-primary">Japan Search <i class='fas fa-external-link-alt'></i></a> <a id="link2" target="_blank" class="btn btn-secondary">Snorql <i class='fas fa-external-link-alt'></i></a> </div>
+        <div class="modal-footer"> <a id="link" target="_blank" class="btn btn-primary">Japan Search <i
+              class='fas fa-external-link-alt'></i></a> <a id="link2" target="_blank" class="btn btn-secondary">Snorql
+            <i class='fas fa-external-link-alt'></i></a> </div>
       </div>
     </div>
   </div>
@@ -39,10 +41,10 @@ layout: default
 
   var graph2d;
 
-  jQuery(document).ready(function() {
+  jQuery(document).ready(function () {
 
     jQuery.ajaxSetup({
-      cache : true
+      cache: true
     });
 
     search()
@@ -59,90 +61,90 @@ layout: default
     query += " } order by desc(?c) ";
 
     $.ajax({
-      url:"https://jpsearch.go.jp/rdf/sparql",
-      type:'GET',
-      data:{
-        query : query,
-        format : "json"
+      url: "https://jpsearch.go.jp/rdf/sparql",
+      type: 'GET',
+      data: {
+        query: query,
+        format: "json"
       }
     })
-    .then(
-    // 1つめは通信成功時のコールバック
-    function (data) {
+      .then(
+        // 1つめは通信成功時のコールバック
+        function (data) {
 
-      var result = data.results.bindings;
+          var result = data.results.bindings;
 
 
 
-      for (var i = 0; i < result.length; i++) {
-        var obj = result[i];
-        var t = obj.t.value
-        t = t.replace("https://jpsearch.go.jp/entity/time/", "")
-        if($.isNumeric(t)){
+          for (var i = 0; i < result.length; i++) {
+            var obj = result[i];
+            var t = obj.t.value
+            t = t.replace("https://jpsearch.go.jp/entity/time/", "")
+            if ($.isNumeric(t)) {
 
-          t = Number(t)
+              t = Number(t)
 
-          if(t < 100){
-            continue
+              if (t < 100) {
+                continue
+              }
+
+              x = t + "-01-01"
+
+              if (!map[x]) {
+                map[x] = 0
+              }
+
+              map[x] = map[x] + Number(obj.c.value)
+
+            }
           }
 
-          x = t+"-01-01"
+          var groups = new vis.DataSet();
 
-          if(!map[x]){
-            map[x] = 0
+          var items = []
+
+          for (var key in map) {
+            var tmp = {}
+            tmp.x = key
+            tmp.y = map[key]
+            tmp.group = "item"
+            items.push(tmp)
           }
+          groups.add({
+            id: "item",
+            content: "item"//+"："+total
+          })
 
-          map[x] = map[x] + Number(obj.c.value)
-
+          displayTimeline(items, groups)
+        },
+        // 2つめは通信失敗時のコールバック
+        function () {
+          alert(data.statusText);
         }
-      }
-
-      var groups = new vis.DataSet();
-
-      var items = []
-
-      for (var key in map) {
-        var tmp = {}
-        tmp.x = key
-        tmp.y = map[key]
-        tmp.group = "item"
-        items.push(tmp)
-      }
-      groups.add({
-        id: "item",
-        content: "item"//+"："+total
-      })
-
-      displayTimeline(items, groups)
-    },
-    // 2つめは通信失敗時のコールバック
-    function () {
-      alert(data.statusText);
-    }
-    ).always(function() {
-      $("#loading").empty()
-    });
+      ).always(function () {
+        $("#loading").empty()
+      });
   }
 
-  function displayTimeline(items, groups){
+  function displayTimeline(items, groups) {
 
     var container = document.getElementById('visualization');
 
     var dataset = new vis.DataSet(items);
     var options = {
       defaultGroup: 'ungrouped',
-      style:'bar',
-      stack : true,
+      style: 'bar',
+      stack: true,
       barChart: {
         //width: width,
-        align:'right'
+        align: 'right'
       }, // align: left, center, right
       drawPoints: false,
       dataAxis: {
-        icons:true
+        icons: true
       },
       legend: true,
-      orientation:'top'
+      orientation: 'top'
     };
     graph2d = new vis.Graph2d(container, items, groups, options);
     graph2d.on('doubleClick', onClick);
@@ -157,19 +159,19 @@ layout: default
 
     var year = dd.getFullYear();
 
-    var link = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-tempo="+year
+    var link = "https://jpsearch.go.jp/csearch/jps-cross/?csid=jps-cross&from=0&q-tempo=" + year
 
     var query = " select distinct ?s ?t where { "
     query += " ?s <http://schema.org/temporal> ?t .  "
-    query += " filter (?t = <https://jpsearch.go.jp/entity/time/" +year+ "> ) "
+    query += " filter (?t = <https://jpsearch.go.jp/entity/time/" + year + "> ) "
     query += " }"
 
-    var link2 = "https://jpsearch.go.jp/rdf/sparql/easy/?query="+encodeURIComponent(query)
+    var link2 = "https://jpsearch.go.jp/rdf/sparql/easy/?query=" + encodeURIComponent(query)
 
 
     $("#link").attr("href", encodeURI(link))
     $("#link2").attr("href", link2)
-    $("#value").text("items in "+year)
+    $("#value").text("items in " + year)
 
 
   }
