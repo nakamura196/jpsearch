@@ -8,6 +8,8 @@ layout: default
 
     <h2 class="mb-5">Class Hierarchy</h2>
 
+    <p id="loading">Loading ...</p>
+
     <div id="using_json_2"></div>
   </div>
 </div>
@@ -23,9 +25,10 @@ layout: default
   function showTree() {
 
 
-    var query = " SELECT DISTINCT ?s ?o ";
+    var query = " SELECT DISTINCT ?s ?o count(?item) as ?c ";
     query += " WHERE { ";
     query += " ?s rdfs:subClassOf ?o .  ";
+    query += " optional { ?item rdf:type ?s . } ";
     query += " FILTER(strstarts(str(?o), \"https://jpsearch.go.jp/term/type/\")) ";
     query += " } ";
 
@@ -39,16 +42,22 @@ layout: default
     })
       .then(function (data) {
         var result = data.results.bindings;
+        console.log(result)
 
         var data = []
 
         for (var i = 0; i < result.length; i++) {
           var obj = result[i]
           var parent = obj.o.value == "https://jpsearch.go.jp/term/type/記述情報" ? "#" : obj.o.value
+          var c = obj.c ? obj.c.value.toLocaleString() : "-"
           var row = {
             "id": obj.s.value,
             "parent": parent,
-            "text": obj.s.value.replace("https://jpsearch.go.jp/term/type/", "")
+            "text": obj.s.value.replace("https://jpsearch.go.jp/term/type/", "") + "(" + c + ")",
+            //"icon": '<i class="far fa-folder"></i>',
+            'state': {
+              'opened': true
+            }
           }
           data.push(row)
         }
@@ -64,6 +73,8 @@ layout: default
             'data': data
           }
         });
+
+        $("#loading").hide();
       })
 
   }
