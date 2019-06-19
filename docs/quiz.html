@@ -1,0 +1,294 @@
+---
+title: Quiz
+layout: default
+---
+<div class="py-5 bg-light">
+    <div class="container">
+
+
+        <h2 class="mb-5">Quiz</h2>
+
+        <p id="loading">Loading ...</p>
+
+        <h3 id="q" class="mb-5"></h3>
+
+        <div class="row" id="row"></div>
+
+        <div id="btn" class="mt-5"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.2/themes/default/style.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.2/jstree.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        createList();
+        //createList_offline();
+    });
+
+    var done = []
+    var result;
+    var result_tmp;
+    var answer = ""
+    var type = ""
+
+    function createList() {
+        var query = " SELECT DISTINCT ?s count(?item) as ?c ";
+        query += " WHERE { ";
+        query += " ?s rdfs:subClassOf ?o .  ";
+        query += " ?item rdf:type ?s . ";
+        query += " FILTER(strstarts(str(?o), \"https://jpsearch.go.jp/term/type/\")) ";
+        query += " } ";
+
+        $.ajax({
+            url: "https://jpsearch.go.jp/rdf/sparql",
+            type: 'GET',
+            data: {
+                query: query,
+                format: "json"
+            }
+        })
+            .then(function (data) {
+                result = data.results.bindings;
+                $("#loading").hide()
+                start()
+            })
+    }
+
+    function createList_offline() {
+        result = [{ "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/アーカイブ資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "10094" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/植物標本" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2114752" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/アクセス情報" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "16651685" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/展覧会" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "45288" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/刀剣" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4369" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/彫刻" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5810" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/歴史資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "6515" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/民族資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5405" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/絵画" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "29959" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/考古" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "37152" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/水彩" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "433" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/出版物" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "135" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/法人文書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "22556" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/画像要素" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "3166" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/絵画等" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "3529" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/雑誌・新聞・継続資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/静止画資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "68058" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/人工物" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "324" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/博物資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/絵葉書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1378" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/工芸" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4360" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/映像資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "107723" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/図書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5950065" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/楽譜" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5803" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/録音資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "162082" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/菌標本" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "70114" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/古書・古文書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "155268" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/陶磁" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "6942" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/黒田記念館収蔵品" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "783" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/素描" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1520" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/資料一般" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1740" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/上演" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "48888" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/司法文書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "54003" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/地図資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1001" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/漆工" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4799" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/会議録" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "3042" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/書写資料" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "20255" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/自然物" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "20" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/動物標本" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2284298" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/ソース情報" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "16651685" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/新聞" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "8552" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/雑誌" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1460479" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/写真" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "10380" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/書跡" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5608" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/染織" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5525" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/装飾・工芸" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "572" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/法隆寺宝物" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "423" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/デザイン" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2558" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/版画" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "12107" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/内閣文庫" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "343002" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/博士論文" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "13" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/寄贈寄託文書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "20626" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/文章要素" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "45408" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/標本" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "28273" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/行政文書" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "3133494" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/記事・論文" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "1551" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/金工" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "18195" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/放送番組" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "3768" } }, { "s": { "type": "uri", "value": "https://jpsearch.go.jp/term/type/ポスター" }, "c": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4" } }]
+        $("#loading").hide()
+        start()
+    }
+
+    function start() {
+
+        $("#btn").empty()
+        $("#row").empty()
+        $("#q").empty()
+
+        var min = 0
+        var max = result.length - 1
+        var a = Math.floor(Math.random() * (max + 1 - min)) + min;
+
+        if (done.length == result.length) {
+            alert("Done !!")
+            return
+        }
+
+        if (done.indexOf(a) == -1) {
+            done.push(a)
+            var obj = result[a]
+            show_data(obj)
+        } else {
+            start()
+        }
+    }
+
+    $('#next').on('click', function () {
+        start()
+    });
+
+    function show_data(param) {
+
+
+        type = param.s.value
+
+        var query = " PREFIX type: <https://jpsearch.go.jp/term/type/> ";
+        query += " SELECT ?place (count(?s) as ?c) WHERE { ";
+        query += " ?s a <" + type + "> ; ";
+        query += " schema:spatial ?place .  ";
+        query += " FILTER(strstarts(str(?place), \"https://jpsearch.go.jp/entity/place/\")) ";
+        query += " } GROUP by ?place ORDER BY desc(?c) ";
+
+        $.ajax({
+            url: "https://jpsearch.go.jp/rdf/sparql",
+            type: 'GET',
+            data: {
+                query: query,
+                format: "json"
+            }
+        })
+            .then(function (data) {
+                result_tmp = data.results.bindings;
+
+                if (result_tmp.length <= 1 || result_tmp[0].place.value == "https://jpsearch.go.jp/entity/place/東京" || result_tmp[0].place.value == "https://jpsearch.go.jp/entity/ncplace/JP") {
+                    start()
+                    return
+                }
+
+                var tmp = result_tmp[0].place.value.split("/")
+                var place = tmp[tmp.length - 1]
+                answer = place
+
+                $("#q").text("タイプ「" + param.s.value.replace("https://jpsearch.go.jp/term/type/", "") + "」の資料が関係する場所として最も多いのはどこでしょうか？")
+
+                var max = 3
+                if(result_tmp.length <= 3){
+                    max = result_tmp.length
+                }
+
+                //1からmax個を抽出
+                var array = result_tmp.slice(0, max);
+                //正解を含める
+                //array.push(result_tmp[0])
+
+                //並び替え
+                for (var i = array.length - 1; i >= 0; i--) {
+
+                    // 0~iのランダムな数値を取得
+                    var rand = Math.floor(Math.random() * (i + 1));
+
+                    // 配列の数値を入れ替える
+                    [array[i], array[rand]] = [array[rand], array[i]]
+
+                }
+
+                for (var i = 0; i < array.length; i++) {
+
+                    var obj = array[i]
+
+                    var col = $('<div class="col-md-4">')
+                    $("#row").append(col)
+
+                    var card = $('<div class="card">')
+                    col.append(card)
+
+                    var body = $('<div class="card-body">')
+                    card.append(body)
+
+                    var h5 = $('<h5 class="card-title">')
+                    body.append(h5)
+
+                    var tmp = obj.place.value.split("/")
+                    var label = tmp[tmp.length - 1]
+                    h5.append(label)
+
+                    var a = $('<button onclick="show_answer(\'' + label + '\')" class="btn btn-primary">')
+                    body.append(a)
+                    a.append("Select")
+                }
+            })
+    }
+
+    function show_answer(label) {
+
+        $("#btn").empty()
+
+
+        if (label == answer) {
+            var al = $('<div class="alert alert-success" role="alert">')
+
+            $("#btn").append(al)
+            al.append("正解")
+        } else {
+            var al = $('<div class="alert alert-danger" role="alert">')
+
+            $("#btn").append(al)
+            al.append("不正解：正解は" + answer + "でした。")
+        }
+
+        show_graph()
+
+        var btn = $("<button>")
+        $("#btn").append(btn)
+        btn.attr("class", "btn btn-primary")
+        btn.attr("onclick", "start()")
+        btn.append("Next")
+
+    }
+
+    function show_graph(){
+
+        $("#btn").append($("<div id='container' class='my-5'>"))
+
+        keys = []
+        values = []
+        for(var i = 0; i < result_tmp.length; i++){
+            var obj = result_tmp[i]
+            var tmp = obj.place.value.split("/")
+            var place = tmp[tmp.length-1]
+            keys.push(place)
+            values.push(Number(obj.c.value))
+        }
+
+        var max = 20
+        if(result_tmp.length < max){
+            max = result_tmp.length
+        }
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ""
+            },
+            xAxis: {
+                categories: keys,
+                title: {
+                    text: null
+                },
+                min: 0,
+                max: max - 1,
+                scrollbar: {
+                    enabled: true
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of items',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' items'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                },
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                var value = this.category
+                                var place = "https://jpsearch.go.jp/entity/place/" + value
+                                var q = " ?item schema:spatial <"+place+">; rdf:type <"+type+"> . "
+                                window.open("providers_online?q=" + q, '_blank');
+                            }
+                        }
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Item',
+                data: values
+            }]
+        });
+
+    }
+
+</script>
