@@ -1,0 +1,193 @@
+---
+layout: default
+title: Providing Organizations
+---
+<div class="py-5 bg-light">
+  <div class="container">
+    <h2>Providing Organizations</h2>
+    <div id="main" class="my-5"></div>
+    <div class="text-center" id="loading"> <img src="assets/images/loading.gif" class="img-fluid" /> </div>
+  </div>
+</div>
+
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script>
+
+  function getParam() {
+    var arg = new Object;
+    url = location.search.substring(1).split('&');
+
+    for (i = 0; url[i]; i++) {
+      var k = url[i].split('=');
+      arg[k[0]] = decodeURIComponent(k[1]);
+    }
+
+    return arg
+  }
+
+  var q;
+
+  jQuery(document).ready(function () {
+
+    var arg = getParam()
+
+    q = arg["q"] ? arg["q"] : null
+
+    search_providers(q)
+    //search_databases()
+
+
+  })
+
+  function search_providers(q) {
+    var query = " SELECT DISTINCT count(DISTINCT ?item) as ?c ?sourceOrganizationLabel WHERE { ";
+    query += " ?item <https://jpsearch.go.jp/term/property#sourceInfo> ?sourceInfo . ";
+    query += " ?sourceInfo <http://schema.org/provider> ?sp . ";
+
+    if (q) {
+      query += q
+    }
+
+    query += " ?sp <http://schema.org/sourceOrganization> ?so . ";
+    query += " ?so <http://www.w3.org/2000/01/rdf-schema#label>  ?sourceOrganizationLabel . ";
+    query += " } order by desc(?c) ";
+
+    $.ajax({
+      url: "https://jpsearch.go.jp/rdf/sparql",
+      type: 'GET',
+      data: {
+        query: query,
+        format: "json"
+      }
+    })
+      .then(function (data) {
+        result = data.results.bindings;
+
+        count = 0
+
+        v = "Providing Organizations"
+
+        var histgram = {}
+
+        for (var i = 0; i < result.length; i++) {
+          var obj = result[i]
+          histgram[obj.sourceOrganizationLabel.value] = Number(obj.c.value)
+        }
+
+        count += 1
+
+        var card = $('<div class="card mb-5">');
+
+        $("#main").append(card);
+
+        var body = $('<div class="card-body">');
+
+        card.append(body);
+
+        body.append($("<div id='container_" + count + "'>"));
+
+        keysSorted = Object.keys(histgram).sort(function (a, b) { return histgram[b] - histgram[a] })
+        keys = []
+        values = []
+
+        var max = 20
+        if (keysSorted.length < max) {
+          max = keysSorted.length
+        }
+
+        for (j = 0; j < keysSorted.length; j++) {
+          var c = histgram[keysSorted[j]]
+          keys.push(keysSorted[j])
+          values.push(c)
+        }
+
+        Highcharts.chart('container_' + count, {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: v
+          },
+          xAxis: {
+            categories: keys,
+            title: {
+              text: null
+            },
+            min: 0,
+            max: max - 1,
+            scrollbar: {
+              enabled: true
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of items',
+              align: 'high'
+            },
+            labels: {
+              overflow: 'justify'
+            }
+          },
+          tooltip: {
+            valueSuffix: ' items'
+          },
+          plotOptions: {
+            bar: {
+              dataLabels: {
+                enabled: true
+              }
+            },
+            series: {
+              cursor: 'pointer',
+              point: {
+                events: {
+                  click: function () {
+                    var value = this.category
+
+                    var query = " select distinct ?label ?item ?provider ?thumbnail ?relatedLink where {  \n"
+                    query += "   ?item rdfs:label ?label;\n"
+                    query += "      jps:sourceInfo ?sourceInfo . \n"
+                    query += "   optional { ?item schema:image ?thumbnail } . \n";
+                    query += "   ?sourceInfo  schema:provider ?p;\n"
+                    query += "      schema:relatedLink ?relatedLink . \n"
+                    query += "   ?p schema:sourceOrganization ?so . \n"
+                    query += "   ?so rdfs:label ?provider . \n"
+                    query += "   filter (?provider = '" + value + "' ) \n"
+                    if (q) {
+                      query += q + "\n"
+                    }
+                    query += " } \n"
+                    query += " order by desc(?thumbnail) \n"
+
+                    var url = "https://jpsearch.go.jp/rdf/sparql/easy/?query=" + encodeURIComponent(query)
+                    window.open(url, '_blank');
+                  }
+                }
+              }
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+          },
+          credits: {
+            enabled: false
+          },
+          series: [{
+            name: 'Item',
+            data: values
+          }]
+        });
+      }).always(function () {
+        $("#loading").empty()
+      });
+  }
+</script>

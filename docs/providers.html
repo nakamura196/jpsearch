@@ -12,145 +12,135 @@ title: Providing Organizations
 
 <script src="//code.highcharts.com/highcharts.js"></script>
 <script>
-  jQuery(document).ready(function() {
+  jQuery(document).ready(function () {
 
     $.ajax({
-      url:'data/sources_all.json'
+      url: 'data/sources_all.json'
     })
-    .then(
-    // 1つめは通信成功時のコールバック
-    function (result) {
+      .then(
+        // 1つめは通信成功時のコールバック
+        function (result) {
 
-      count = 0
+          count = 0
 
-      v = "Providing Organizations"
+          v = "Providing Organizations"
 
-      var histgram = {}
+          var histgram = {}
 
-      for(var org in result){
+          for (var org in result) {
 
-        databases = result[org]
+            databases = result[org]
 
-        var sum = 0
+            var sum = 0
 
-        for(var db in databases){
-          var db_obj = databases[db]
+            for (var db in databases) {
+              var db_obj = databases[db]
 
-          for(var type in db_obj){
-            sum += db_obj[type]
+              for (var type in db_obj) {
+                sum += db_obj[type]
+              }
+
+            }
+            histgram[org] = sum
           }
 
-        }
-        histgram[org] = sum
-      }
+          count += 1
 
-      count += 1
+          var card = $('<div class="card mb-5">');
 
-      var card = $('<div class="card mb-5">');
+          $("#main").append(card);
 
-        $("#main").append(card);
-
-        var body = $('<div class="card-body">');
+          var body = $('<div class="card-body">');
 
           card.append(body);
 
-          body.append($("<div id='container_"+count+"'>"));
+          body.append($("<div id='container_" + count + "'>"));
 
-            keysSorted = Object.keys(histgram).sort(function(a,b){return histgram[b]-histgram[a]})
-            keys = []
-            values = []
+          keysSorted = Object.keys(histgram).sort(function (a, b) { return histgram[b] - histgram[a] })
+          keys = []
+          values = []
 
-            var max = keysSorted.length
-
-            var other = 0
-
-            if(max > 50){
-              for(j = 0; j < max; j++){
-                var c = histgram[keysSorted[j]]
-                if(c > 10){
-                  keys.push(keysSorted[j])
-                  values.push(c)
-                } else {
-                  other += c
-                }
-              }
-
-              keys.push("その他")
-              values.push(other)
-
-            } else {
-              for(j = 0; j < max; j++){
-                var c = histgram[keysSorted[j]]
-                keys.push(keysSorted[j])
-                values.push(c)
-              }
-            }
-
-            Highcharts.chart('container_'+count, {
-              chart: {
-                type: 'bar'
-              },
-              title: {
-                text: v
-              },
-              xAxis: {
-                categories: keys,
-                title: {
-                  text: null
-                }
-              },
-              yAxis: {
-                min: 0,
-                title: {
-                  text: 'Number of items',
-                  align: 'high'
-                },
-                labels: {
-                  overflow: 'justify'
-                }
-              },
-              tooltip: {
-                valueSuffix: ' items'
-              },
-              plotOptions: {
-                bar: {
-                  dataLabels: {
-                    enabled: true
-                  }
-                },
-                series: {
-                  cursor: 'pointer'
-                }
-              },
-              legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-              },
-              credits: {
-                enabled: false
-              },
-              series: [{
-                name: 'Item',
-                data: values
-              }]
-            });
-
-
-          },
-          // 2つめは通信失敗時のコールバック
-          function () {
-            alert(data.statusText);
+          var max = 20
+          if (keysSorted.length < max) {
+            max = keysSorted.length
           }
-          ).always(function() {
-            $("#loading").empty()
+
+          for (j = 0; j < keysSorted.length; j++) {
+            var c = histgram[keysSorted[j]]
+            keys.push(keysSorted[j])
+            values.push(c)
+          }
+
+          Highcharts.chart('container_' + count, {
+            chart: {
+              type: 'column'
+            },
+            title: {
+              text: v
+            },
+            xAxis: {
+              categories: keys,
+              title: {
+                text: null
+              },
+              min: 0,
+              max: max - 1,
+              scrollbar: {
+                enabled: true
+              }
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Number of items',
+                align: 'high'
+              },
+              labels: {
+                overflow: 'justify'
+              }
+            },
+            tooltip: {
+              valueSuffix: ' items'
+            },
+            plotOptions: {
+              bar: {
+                dataLabels: {
+                  enabled: true
+                }
+              },
+              series: {
+                cursor: 'pointer'
+              }
+            },
+            legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'top',
+              x: -40,
+              y: 80,
+              floating: true,
+              borderWidth: 1,
+              backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+              shadow: true
+            },
+            credits: {
+              enabled: false
+            },
+            series: [{
+              name: 'Item',
+              data: values
+            }]
           });
 
-        })
-      </script>
+
+        },
+        // 2つめは通信失敗時のコールバック
+        function () {
+          alert(data.statusText);
+        }
+      ).always(function () {
+        $("#loading").empty()
+      });
+
+  })
+</script>
