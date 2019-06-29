@@ -1,0 +1,137 @@
+---
+title: 文字列のくずし字化
+layout: default
+---
+
+<style>
+    img {
+        border: 2px black solid;
+    }
+</style>
+
+<div class="py-5 bg-light">
+    <div class="container">
+
+        <h2 class="mb-5">文字列のくずし字化</h2>
+
+        <form>
+            <div class="input-group mb-5">
+                <input class="form-control" name="q" id="q" />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">実行</button>
+                </div>
+            </div>
+        </form>
+
+        <p class="text-center my-5" id="loading">Loading ...</p>
+
+        <div class="mb-5" id="main"></div>
+
+        <p>以下の成果を活用しています。</p>
+
+        <ul>
+            <li>『日本古典籍くずし字データセット』（国文研ほか所蔵／CODH加工） doi:10.20676/00000340</li>
+            <li>提供：<a href="http://codh.rois.ac.jp/">人文学オープンデータ共同利用センター</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    var conv_url = "https://diyhistory.org/tmp/convert/get.php/"
+
+    function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    jQuery(document).ready(function () {
+
+        q = getParam("q")
+
+        if (q != null) {
+            $("#q").val(q);
+            $("#loading").hide();
+            exec(q)
+        } else {
+            $("#loading").hide()
+        }
+    });
+
+    function exec(q) {
+
+        $.ajaxSetup({ async: false });
+
+        var chars = q.split("")
+
+        for (var j = 0; j < chars.length; j++) {
+            var char = chars[j]
+
+            console.log(char)
+
+            var url2 = "http://codh.rois.ac.jp/cgi-bin/char-shape/search.pl?key=" + encodeURIComponent(char)
+            url2 = conv_url + url2
+
+            $.getJSON(url2, function () {
+            }).done(function (data2) {
+
+                url = data2.location
+
+                url = conv_url + url
+
+                $.get(url, function (data) {
+
+                    var areas = $(data).find("area")
+
+                    if (areas.length == 0) {
+                        return
+                    }
+
+                    var min = 0;
+                    var max = areas.length - 1;
+
+                    var a = Math.floor(Math.random() * (max + 1 - min)) + min;
+
+                    var area = areas[a]
+
+                    var href = $(area).attr("href")
+                    var param = href.split("?")[1].split("&")
+                    var manifest = param[0].split("=")[1]
+                    var pos = param[1].split("=")[1]
+                    var xywh = param[2].split("=")[1]
+
+                    manifest = conv_url + manifest
+
+                    $.getJSON(manifest, function () {
+                    }).done(function (manifest_data) {
+
+                        canvas = manifest_data.sequences[0].canvases[Number(pos) - 1]
+                        image = canvas["images"][0]["resource"]["service"]["@id"]
+                        image_url = image + "/" + xywh + "/,90/0/default.jpg"
+
+                        var a = $("<a>")
+                        $("#main").append(a)
+                        a.attr("href", "http://codh.rois.ac.jp" + href)
+                        a.attr("target", "_blank")
+
+                        var img = $("<img>")
+                        a.append(img)
+                        img.attr("src", image_url)
+                    })
+
+                });
+
+
+            })
+
+
+
+        }
+    }
+
+</script>
