@@ -149,6 +149,3 @@ for v, data_v in sorted(texts.items()):
             para.append(line)
 
     tree.write("../../docs/data/genji/genji_"+str(v).zfill(2)+".xml", encoding="utf-8")
-
-    if v >= 3:
-        break
