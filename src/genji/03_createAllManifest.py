@@ -88,7 +88,7 @@ with open('data/genji.csv', 'r') as f:
         st.append({
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r"+v+"_cover.json",
             "@type": "sc:Range",
-            "label": "第"+str(v)+"冊 表紙",
+            "label": "表紙",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r"+v+".json",
             "canvases": [
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/" +
