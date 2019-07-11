@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/42.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/42.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第42冊",
@@ -514,6 +514,30 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r42.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1466",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1467",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1468",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1469",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1470",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1471",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1472",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1473",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1474",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1475",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1476",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1477",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1478",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1479",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1480",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1481",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1482"
+            ],
+            "label": "第42冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r42_cover.json",
             "@type": "sc:Range",

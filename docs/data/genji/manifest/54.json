@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/54.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/54.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第54冊",
@@ -682,6 +682,36 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r54.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2119",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2120",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2121",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2122",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2123",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2124",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2125",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2126",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2127",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2128",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2129",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2130",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2131",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2132",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2133",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2134",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2135",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2136",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2137",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2138",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2139",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2140",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2141"
+            ],
+            "label": "第54冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r54_cover.json",
             "@type": "sc:Range",

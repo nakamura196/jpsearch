@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/08.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/08.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第8冊",
@@ -430,6 +430,27 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r8.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/281",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/282",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/283",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/284",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/285",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/286",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/287",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/288",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/289",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/290",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/291",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/292",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/293",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/294"
+            ],
+            "label": "第8冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r8_cover.json",
             "@type": "sc:Range",

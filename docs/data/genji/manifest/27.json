@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/27.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/27.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第27冊",
@@ -234,6 +234,20 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r27.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/880",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/881",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/882",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/883",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/884",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/885",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/886"
+            ],
+            "label": "第27冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r27_cover.json",
             "@type": "sc:Range",

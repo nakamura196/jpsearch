@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/17.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/17.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第17冊",
@@ -654,6 +654,35 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r17.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/582",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/583",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/584",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/585",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/586",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/587",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/588",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/589",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/590",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/591",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/592",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/593",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/594",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/595",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/596",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/597",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/598",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/599",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/600",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/601",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/602",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/603"
+            ],
+            "label": "第17冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r17_cover.json",
             "@type": "sc:Range",

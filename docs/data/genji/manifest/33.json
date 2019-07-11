@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/33.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/33.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第33冊",
@@ -822,6 +822,41 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r33.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1021",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1022",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1023",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1024",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1025",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1026",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1027",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1028",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1029",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1030",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1031",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1032",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1033",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1034",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1035",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1036",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1037",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1038",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1039",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1040",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1041",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1042",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1043",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1044",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1045",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1046",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1047",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1048"
+            ],
+            "label": "第33冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r33_cover.json",
             "@type": "sc:Range",

@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/03.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/03.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第3冊",
@@ -458,6 +458,28 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r3.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/86",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/87",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/88",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/89",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/90",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/91",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/92",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/93",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/94",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/95",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/96",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/97",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/98",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/99",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/100"
+            ],
+            "label": "第3冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r3_cover.json",
             "@type": "sc:Range",

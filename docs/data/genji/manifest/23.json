@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/23.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/23.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第23冊",
@@ -542,6 +542,31 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r23.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/788",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/789",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/790",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/791",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/792",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/793",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/794",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/795",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/796",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/797",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/798",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/799",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/800",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/801",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/802",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/803",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/804",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/805"
+            ],
+            "label": "第23冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r23_cover.json",
             "@type": "sc:Range",

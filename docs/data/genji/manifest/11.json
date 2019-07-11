@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/11.json",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/11.xml",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第11冊",
@@ -262,6 +262,21 @@
         "profile": "http://iiif.io/api/search/0/search"
     },
     "structures": [
+        {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r11.json",
+            "@type": "sc:Range",
+            "canvases": [
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/404",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/405",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/406",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/407",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/408",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/409",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/410",
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/411"
+            ],
+            "label": "第11冊"
+        },
         {
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r11_cover.json",
             "@type": "sc:Range",
