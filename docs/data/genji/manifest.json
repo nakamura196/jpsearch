@@ -20,6 +20,12 @@
             "value": "10.20730/200003803"
         }
     ],
+    "service": {
+        "@context": "http://iiif.io/api/search/0/context.json",
+        "@id": "https://iiif.dl.itc.u-tokyo.ac.jp/api/iiif-search/get.php/https://nakamura196.github.io/jpsearch/data/genji/all.xml",
+        "profile": "http://iiif.io/api/search/0/search",
+        "label": "Search within this manifest"
+    },
     "label": "源氏物語",
     "attribution": "国文学研究資料館",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
