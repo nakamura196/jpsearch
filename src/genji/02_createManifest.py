@@ -8,11 +8,12 @@ import collections
 import os
 import xml.etree.ElementTree as ET
 import csv
+import copy
 
 
 def read_list():
     result = {}
-    with open('01_list.csv', 'r') as f:
+    with open('data/01_list.csv', 'r') as f:
         reader = csv.reader(f)
         header = next(reader)  # ヘッダーを読み飛ばしたい時
 
@@ -47,11 +48,11 @@ with open('data/genji.csv', 'r') as f:
         v = row[0]
         cover = int(row[1])
         back = int(row[4])
-        import copy
+        
         data = copy.deepcopy(temp)
 
         manifest = "https://nakamura196.github.io/jpsearch/data/genji/manifest/" + \
-            str(v).zfill(2)+".xml"
+            str(v).zfill(2)+".json"
         data["@id"] = manifest
         data["label"] = data["label"]+" 第"+str(v)+"冊"
 

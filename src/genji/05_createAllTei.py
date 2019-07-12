@@ -12,7 +12,7 @@ import csv
 
 def read_list():
     result = {}
-    with open('01_list.csv', 'r') as f:
+    with open('data/01_list.csv', 'r') as f:
         reader = csv.reader(f)
         header = next(reader)  # ヘッダーを読み飛ばしたい時
 
@@ -78,7 +78,8 @@ para = root.find(prefix + "body").find(prefix + "p")
 
 for v, data_v in sorted(texts.items()):
 
-    
+    if v > 54:
+        continue
 
     div = None
 

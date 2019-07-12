@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/29.xml",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/29.json",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第29冊",
@@ -975,18 +975,9 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r29_pic3.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/913"
-            ],
-            "label": "挿絵[3]",
-            "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r29.json"
-        },
-        {
-            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r29_pic4.json",
-            "@type": "sc:Range",
-            "canvases": [
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/926"
             ],
-            "label": "挿絵[4]",
+            "label": "挿絵[3]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r29.json"
         },
         {

@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/12.xml",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/12.json",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第12冊",
@@ -1571,7 +1571,7 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12_pic8.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/446"
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/451"
             ],
             "label": "挿絵[8]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12.json"
@@ -1580,18 +1580,9 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12_pic9.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/451"
-            ],
-            "label": "挿絵[9]",
-            "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12.json"
-        },
-        {
-            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12_pic10.json",
-            "@type": "sc:Range",
-            "canvases": [
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/456"
             ],
-            "label": "挿絵[10]",
+            "label": "挿絵[9]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r12.json"
         },
         {

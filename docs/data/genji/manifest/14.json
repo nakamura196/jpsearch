@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/14.xml",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/14.json",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第14冊",
@@ -1196,18 +1196,9 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r14_pic5.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/532"
-            ],
-            "label": "挿絵[5]",
-            "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r14.json"
-        },
-        {
-            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r14_pic6.json",
-            "@type": "sc:Range",
-            "canvases": [
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/538"
             ],
-            "label": "挿絵[6]",
+            "label": "挿絵[5]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r14.json"
         },
         {

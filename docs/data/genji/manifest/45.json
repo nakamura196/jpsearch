@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/45.xml",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/45.json",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第45冊",
@@ -1332,7 +1332,7 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45_pic4.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1564"
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1570"
             ],
             "label": "挿絵[4]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45.json"
@@ -1341,7 +1341,7 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45_pic5.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1570"
+                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1572"
             ],
             "label": "挿絵[5]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45.json"
@@ -1350,18 +1350,9 @@
             "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45_pic6.json",
             "@type": "sc:Range",
             "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1572"
-            ],
-            "label": "挿絵[6]",
-            "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45.json"
-        },
-        {
-            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45_pic7.json",
-            "@type": "sc:Range",
-            "canvases": [
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1582"
             ],
-            "label": "挿絵[7]",
+            "label": "挿絵[6]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r45.json"
         },
         {

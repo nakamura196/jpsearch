@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/2/context.json",
-    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/51.xml",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/51.json",
     "@type": "sc:Manifest",
     "attribution": "国文学研究資料館",
     "label": "源氏物語 第51冊",
@@ -2308,15 +2308,6 @@
                 "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1982"
             ],
             "label": "挿絵[9]",
-            "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r51.json"
-        },
-        {
-            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r51_pic10.json",
-            "@type": "sc:Range",
-            "canvases": [
-                "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/1983"
-            ],
-            "label": "挿絵[10]",
             "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r51.json"
         },
         {

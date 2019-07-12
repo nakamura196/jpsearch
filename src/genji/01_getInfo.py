@@ -26,7 +26,8 @@ while(flg):
         prefix jps: <https://jpsearch.go.jp/term/property#>
         select distinct ?s ?label ?part {
                 ?s rdfs:label ?label . 
-                ?s schema:isPartOf ?part . 
+                ?s schema:description ?part . 
+                filter regex(?part, "［冊数名］") . 
                 ?s jps:sourceInfo ?info . 
                 ?info schema:provider chname:絵入源氏物語 . 
                 } limit """+str(d)+""" offset """+str(page * d)+"""
@@ -40,19 +41,26 @@ while(flg):
                 s = row2["s"]["value"]
                 label = row2["label"]["value"]
                 part = row2["part"]["value"]
+
+                part = part.replace("］", ":").split(":")
+                v = part[1]
+                p = part[3]
+
                 # print(part)
+                '''
                 part = part.split("v")
                 if len(part) < 2:
                         continue
                 part = part[1].split("p")
                 v = part[0]
                 p = str(int(part[1]))
+                '''
 
                 row = [s, label, v, p]
                 rows.append(row)
 
         page += 1
 
-with open('01_list.csv', 'w') as f:
+with open('data/01_list.csv', 'w') as f:
     writer = csv.writer(f, lineterminator='\n')  # 改行コード（\n）を指定しておく
     writer.writerows(rows)  # 2次元配列も書き込める
