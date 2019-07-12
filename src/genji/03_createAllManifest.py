@@ -56,6 +56,7 @@ st = []
 data["structures"] = st
 
 count_pics = 1
+pics = []
 
 with open('data/genji.csv', 'r') as f:
     reader = csv.reader(f)
@@ -106,7 +107,9 @@ with open('data/genji.csv', 'r') as f:
 
         for i in range(pmin, pmax):
             if i not in data_v:
+
                 p = int(i/2) + (1 + cover)
+                
                 st.append({
                     "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r"+v+"_pic"+str(count_pics)+".json",
                     "@type": "sc:Range",
@@ -114,6 +117,33 @@ with open('data/genji.csv', 'r') as f:
                     "within": "https://kotenseki.nijl.ac.jp/biblio/200003803/range/r"+v+".json",
                     "canvases": ["https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/"+str(p)]
                 })
+                
+
+                canvas = data["sequences"][0]["canvases"][p-1]
+                width = canvas["width"]
+                height = canvas["height"]
+
+                
+
+                if i % 2 == 0:
+                    x = int(width / 2)
+                    y = 0
+                    w = int(width / 2)
+                    h = height
+                else:
+                    x = 0
+                    y = 0
+                    w = int(width / 2)
+                    h = height
+
+                xywh = str(x)+","+str(y)+","+str(w)+","+str(h)
+
+                pics.append({
+                    "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/"+str(p)+"#xywh="+xywh,
+                    "@type": "sc:Canvas",
+                    "label": "挿絵["+str(count_pics)+"]"
+                })
+
                 count_pics += 1
 
         # ---
@@ -131,4 +161,32 @@ with open('data/genji.csv', 'r') as f:
 
 fw = open("../../docs/data/genji/manifest.json", 'w')
 json.dump(data, fw, ensure_ascii=False, indent=4,
+            sort_keys=True, separators=(',', ': '))
+
+
+curation = {
+    "@context": [
+        "http://iiif.io/api/presentation/2/context.json",
+        "http://codh.rois.ac.jp/iiif/curation/1/context.json"
+    ],
+    "@type": "cr:Curation",
+    "@id": "https://nakamura196.github.io/jpsearch/data/genji/curation.json",
+    "label": "挿絵キュレーション",
+    "selections": [
+        {
+            "@id": "https://nakamura196.github.io/jpsearch/data/genji/curation.json#1",
+            "@type": "sc:Range",
+            "label": "Automaic curation by IIIF Converter",
+            "members": pics,
+            "within": {
+                "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest.json",
+                "@type": "sc:Manifest",
+                "label": "源氏物語"
+            }
+        }
+    ]
+}
+
+fw = open("../../docs/data/genji/curation.json", 'w')
+json.dump(curation, fw, ensure_ascii=False, indent=4,
             sort_keys=True, separators=(',', ': '))
