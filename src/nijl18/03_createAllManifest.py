@@ -11,15 +11,20 @@ import csv
 import glob
 
 '''
-collection = "masukagami"
+collection = "azumakagami"
+col_id = "200005040"
 
-collection = "imakagami"
+collection = "mizukagami"
+col_id = "200008370"
 
 collection = "okagami"
 col_id = "200019161"
 
-collection = "mizukagami"
-col_id = "200008370"
+collection = "imakagami"
+col_id = "200017351"
+
+collection = "masukagami"
+col_id = "200010997"
 
 '''
 collection = "azumakagami"
@@ -43,7 +48,7 @@ data["label"] = data["label"]
 
 data["service"] = {
     "@context": "http://iiif.io/api/search/0/context.json",
-    "@id": "https://iiif.dl.itc.u-tokyo.ac.jp/api/iiif-search/get.php/https://nakamura196.github.io/jpsearch/data/genji/tei.xml",
+    "@id": "https://iiif.dl.itc.u-tokyo.ac.jp/api/iiif-search/get.php/https://nakamura196.github.io/jpsearch/data/"+collection+"/tei.xml",
     "profile": "http://iiif.io/api/search/0/search",
     "label": "Search within this manifest"
 }
