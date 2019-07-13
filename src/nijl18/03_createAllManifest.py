@@ -15,14 +15,18 @@ collection = "masukagami"
 
 collection = "imakagami"
 
+collection = "okagami"
+col_id = "200019161"
 
 collection = "mizukagami"
 col_id = "200008370"
 
 '''
 
-collection = "okagami"
-col_id = "200019161"
+
+
+collection = "mizukagami"
+col_id = "200008370"
 
 
 url = "https://kotenseki.nijl.ac.jp/biblio/"+col_id+"/manifest"
@@ -53,7 +57,7 @@ data["structures"] = st
 
 files = glob.glob("../../docs/data/"+collection+"/manifest/*.json")
 
-for file in files:
+for file in sorted(files):
 
     # ローカルJSONファイルの読み込み
     with open(file, 'r') as f:
