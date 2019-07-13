@@ -10,13 +10,30 @@ import xml.etree.ElementTree as ET
 import csv
 import glob
 
-# collection = "masukagami"
+'''
+collection = "masukagami"
 
 collection = "imakagami"
 
-# ローカルJSONファイルの読み込み
-with open('data/'+collection+'/manifest.json', 'r') as f:
-    temp = json.load(f)
+
+collection = "mizukagami"
+col_id = "200008370"
+
+'''
+
+collection = "okagami"
+col_id = "200019161"
+
+
+url = "https://kotenseki.nijl.ac.jp/biblio/"+col_id+"/manifest"
+
+# ----
+
+request = urllib.request.Request(url)
+response = urllib.request.urlopen(request)
+
+response_body = response.read().decode("utf-8")
+temp = json.loads(response_body)
 
 data = temp
 
@@ -34,7 +51,7 @@ data["service"] = {
 st = []
 data["structures"] = st
 
-files = glob.glob("../../docs/data/"+collection+"/tei/*.xml")
+files = glob.glob("../../docs/data/"+collection+"/manifest/*.json")
 
 for file in files:
 

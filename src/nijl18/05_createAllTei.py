@@ -12,11 +12,16 @@ import glob
 
 # collection = "masukagami"
 
-collection = "imakagami"
+# collection = "imakagami"
+
+collection = "okagami"
+
+# collection = "mizukagami"
 
 # ----
 
 url = "https://nakamura196.github.io/jpsearch/data/"+collection+"/manifest.json"
+print(url)
 
 # ----
 

@@ -10,14 +10,29 @@ import xml.etree.ElementTree as ET
 import csv
 import copy
 
+'''
 collection = "masukagami"
 col_id = "200010997"
 key = "増鏡"
 
-# collection = "imakagami"
-# col_id = "200017351"
-# key = "今鏡"
+collection = "imakagami"
+col_id = "200017351"
+key = "今鏡"
 
+collection = "okagami"
+col_id = "200019161"
+key = "大鏡"
+
+
+'''
+
+collection = "mizukagami"
+col_id = "200008370"
+key = "水鏡"
+
+odir = "../../docs/data/"+collection+"/manifest"
+
+os.makedirs(odir, exist_ok=True)
 
 def read_list(key):
     result = {}
@@ -53,10 +68,15 @@ def read_list(key):
 texts = read_list(key)
 
 
+url = "https://kotenseki.nijl.ac.jp/biblio/"+col_id+"/manifest"
 
-# ローカルJSONファイルの読み込み
-with open('data/'+collection+'/manifest.json', 'r') as f:
-    temp = json.load(f)
+# ----
+
+request = urllib.request.Request(url)
+response = urllib.request.urlopen(request)
+
+response_body = response.read().decode("utf-8")
+temp = json.loads(response_body)
 
 with open('data/'+collection+'/range.csv', 'r') as f:
     reader = csv.reader(f)
@@ -175,14 +195,21 @@ with open('data/'+collection+'/range.csv', 'r') as f:
 
         # print(full)
 
+        # print(canvases_old)
+
         canvases = []
         for canvas in canvases_old:
+            print(canvas["@id"])
+            print(canvas["@id"] in full)
+            print(full)
             if canvas["@id"] in full:
                 canvases.append(canvas)
 
+        print(canvases)
+
         data["sequences"][0]["canvases"] = canvases
 
-        fw = open("../../docs/data/"+collection+"/manifest/" +
+        fw = open(odir+"/" +
                   str(v).zfill(2)+".json", 'w')
         json.dump(data, fw, ensure_ascii=False, indent=4,
                   sort_keys=True, separators=(',', ': '))

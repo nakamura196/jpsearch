@@ -9,13 +9,31 @@ import os
 import xml.etree.ElementTree as ET
 import csv
 
+'''
 collection = "masukagami"
 col_id = "200010997"
 key = "増鏡"
 
-# collection = "imakagami"
-# col_id = "200017351"
-# key = "今鏡"
+collection = "imakagami"
+col_id = "200017351"
+key = "今鏡"
+
+collection = "okagami"
+col_id = "200019161"
+key = "大鏡"
+
+collection = "mizukagami"
+col_id = "20008370"
+key = "水鏡"
+'''
+
+collection = "okagami"
+col_id = "200019161"
+key = "大鏡"
+
+odir = "../../docs/data/"+collection+"/tei"
+
+os.makedirs(odir, exist_ok=True)
 
 def read_list(key):
     result = {}
@@ -82,11 +100,9 @@ with open('data/'+collection+'/range.csv', 'r') as f:
 
 for v, data_v in sorted(texts.items()):
 
-    if v > 54:
-        continue
-
     url = "https://nakamura196.github.io/jpsearch/data/"+collection+"/manifest/" + \
         str(v).zfill(2)+".json"
+    print(url)
 
     # ----
 
@@ -102,9 +118,12 @@ for v, data_v in sorted(texts.items()):
     for i in range(len(canvases)):
         canvas_index_map[canvases[i]["@id"]] = i
 
-    range_body = data["structures"][2]["canvases"]
-
-    # print(range_body)
+    range_body = []
+    structures = data["structures"]
+    for st in structures:
+        if "本文" in st["label"]:
+            for cid in st["canvases"]:
+                range_body.append(cid)
 
     canvases_new = []
 
@@ -218,4 +237,4 @@ for v, data_v in sorted(texts.items()):
                 # para.append(line)
                 div.append(line)
 
-    tree.write("../../docs/data/"+collection+"/tei/"+str(v).zfill(2)+".xml", encoding="utf-8")
+    tree.write(odir+"/"+str(v).zfill(2)+".xml", encoding="utf-8")
