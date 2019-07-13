@@ -23,12 +23,15 @@ collection = "okagami"
 col_id = "200019161"
 key = "大鏡"
 
-
-'''
-
 collection = "mizukagami"
 col_id = "200008370"
 key = "水鏡"
+
+'''
+
+collection = "azumakagami"
+col_id = "200005040"
+key = "吾妻鏡"
 
 odir = "../../docs/data/"+collection+"/manifest"
 
@@ -193,19 +196,10 @@ with open('data/'+collection+'/range.csv', 'r') as f:
             ]
         })
 
-        # print(full)
-
-        # print(canvases_old)
-
         canvases = []
         for canvas in canvases_old:
-            print(canvas["@id"])
-            print(canvas["@id"] in full)
-            print(full)
             if canvas["@id"] in full:
                 canvases.append(canvas)
-
-        print(canvases)
 
         data["sequences"][0]["canvases"] = canvases
 

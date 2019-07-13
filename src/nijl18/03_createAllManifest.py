@@ -22,12 +22,8 @@ collection = "mizukagami"
 col_id = "200008370"
 
 '''
-
-
-
-collection = "mizukagami"
-col_id = "200008370"
-
+collection = "azumakagami"
+col_id = "200005040"
 
 url = "https://kotenseki.nijl.ac.jp/biblio/"+col_id+"/manifest"
 

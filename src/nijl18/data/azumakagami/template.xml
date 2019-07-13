@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+            <respStmt>
+               <orgName ref="https://jpsearch.go.jp">Japan Search</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <orgName ref="https://www.nihu.jp/">大学共同利用機関法人 人間文化研究機構</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <orgName ref="http://base1.nijl.ac.jp/infolib/meta_pub/G0001501HISTORY"
+                  >歴史物語</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-11">TEI Encoding</resp>
+               <name>Satoru Nakamura</name>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <distributor>Satoru Nakamura</distributor>
+            <date when="2019-07-11">2019年7月11日</date>
+            <availability>
+               <p>
+                  <ref target="http://creativecommons.org/licenses/by-nc/4.0/">クリエイティブ・コモンズ 表示 - 非営利
+                     4.0 国際 ライセンス</ref></p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://kotenseki.nijl.ac.jp/biblio/200005040/">吾妻鏡</title>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <facsimile>
+      <surfaceGrp> </surfaceGrp>
+   </facsimile>
+   <text>
+      <body>
+         <p/>
+      </body>
+   </text>
+</TEI>

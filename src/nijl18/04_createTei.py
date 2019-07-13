@@ -27,9 +27,9 @@ col_id = "20008370"
 key = "水鏡"
 '''
 
-collection = "okagami"
-col_id = "200019161"
-key = "大鏡"
+collection = "azumakagami"
+col_id = "200005040"
+key = "吾妻鏡"
 
 odir = "../../docs/data/"+collection+"/tei"
 
@@ -74,6 +74,23 @@ prefix = ".//{http://www.tei-c.org/ns/1.0}"
 xml = ".//{http://www.w3.org/XML/1998/namespace}"
 
 tmp_path = "data/"+collection+"/template.xml"
+# ----
+
+url = "https://nakamura196.github.io/jpsearch/data/"+collection+"/manifest.json"
+print(url)
+
+# ----
+
+request = urllib.request.Request(url)
+response = urllib.request.urlopen(request)
+
+response_body = response.read().decode("utf-8")
+manifest = json.loads(response_body)
+
+canvases = manifest["sequences"][0]["canvases"]
+all_canvas_index_map = {}
+for i in range(len(canvases)):
+    all_canvas_index_map[canvases[i]["@id"]] = i
 
 # ----
 
@@ -99,6 +116,9 @@ with open('data/'+collection+'/range.csv', 'r') as f:
 # ----
 
 for v, data_v in sorted(texts.items()):
+
+    if v == 13:
+        continue
 
     url = "https://nakamura196.github.io/jpsearch/data/"+collection+"/manifest/" + \
         str(v).zfill(2)+".json"
@@ -176,6 +196,12 @@ for v, data_v in sorted(texts.items()):
         cid = int(p/2)
         # print(cid)
 
+        print("page: "+str(p)+"\tcanvas index: " +
+              str(all_canvas_index_map[canvas_id] + 1))
+
+        # print(len(canvases))
+        # print(cid)
+ 
         canvas_id = canvases[cid]["@id"]
 
         canvas = canvas_map[canvas_id]

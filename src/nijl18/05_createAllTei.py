@@ -14,9 +14,11 @@ import glob
 
 # collection = "imakagami"
 
-collection = "okagami"
+# collection = "okagami"
 
 # collection = "mizukagami"
+
+collection = "azumakagami"
 
 # ----
 
