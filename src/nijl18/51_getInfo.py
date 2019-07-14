@@ -10,7 +10,7 @@ page = 0
 
 flg = True
 
-row = ["URI", "LABEL", "V", "P", "L", "C"]
+row = ["URI", "LABEL", "V", "P", "L", "C", "Y", "MD"]
 rows.append(row)
 
 d = 1000
@@ -66,8 +66,12 @@ while(flg):
                 v = relation[0].replace("］", "]").split("]")[1]
                 p = relation[1].replace("］", "]").split("]")[1]
                 l = relation[2].replace("］", "]").split("]")[1]
+                md = relation[3].replace("］", "]").split("]")[1]
 
-                row = [id, label, v, p, l, collection2]
+                y = obj[collection +
+                        "-NihuRoot"]["nihuDC"]["FesData"]["Subject-s"][1].replace("］", "]").split("]")[1]
+
+                row = [id, label, v, p, l, collection2, y , md]
                 # print(row)
                 rows.append(row)
 
@@ -75,10 +79,17 @@ while(flg):
                         flg = False
                         break
 
+                '''
+                if len(rows) > 40000:
+                        flg = False
+                        break
+                '''
+                
+
         print(len(rows) - 1)
         print(max)
         page += 1
 
-with open('data/'+collection+'/01_list.csv', 'w') as f:
+with open('data/azumakagami/01_list_d.csv', 'w') as f:
     writer = csv.writer(f, lineterminator='\n')  # 改行コード（\n）を指定しておく
     writer.writerows(rows)  # 2次元配列も書き込める

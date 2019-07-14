@@ -42,7 +42,7 @@ temp = json.loads(response_body)
 
 data = temp
 
-manifest = "https://nakamura196.github.io/jpsearch/data/genji/manifest.json"
+manifest = "https://nakamura196.github.io/jpsearch/data/"+collection+"/manifest.json"
 data["@id"] = manifest
 data["label"] = data["label"]
 
