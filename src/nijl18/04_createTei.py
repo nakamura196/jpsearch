@@ -181,9 +181,9 @@ for v, data_v in sorted(texts.items()):
 
     pmax = max(data_v)
     pmin = min(data_v)
-    for i in range(pmin, pmax + 1):
+    for p in range(pmin, pmax + 1):
 
-        p = i
+        # p = i
 
         lb = ET.Element(
             "{http://www.tei-c.org/ns/1.0}lb")
@@ -194,7 +194,6 @@ for v, data_v in sorted(texts.items()):
         para.append(div)
 
         cid = int(p/2)
-        # print(cid)
 
         print("page: "+str(p)+"\tcanvas index: " +
               str(all_canvas_index_map[canvas_id] + 1))
@@ -233,6 +232,7 @@ for v, data_v in sorted(texts.items()):
                 "{http://www.tei-c.org/ns/1.0}zone")
             surface.append(zone)
             zone.set("xml:id", zone_id)
+
             w = canvas["width"]
             h = canvas["height"]
             if p % 2 == 0:
@@ -249,6 +249,9 @@ for v, data_v in sorted(texts.items()):
 
             # pb.set("facs", "#"+zone_id)
             div.set("facs", "#"+zone_id)
+            if v == 1 and p >= 14 and collection == "azumakagami":
+                div.set("facs", "#zone_" + str(v).zfill(4) +
+                        "_"+str(p+1).zfill(4))
 
             for l, obj in sorted(data_p.items()):
                 lb = ET.Element(
