@@ -63,7 +63,7 @@ for obj in json_data:
 
         obj["http://purl.org/dc/terms/isPartOf"] = [
             {
-                "@id": manifest_map[canvas].replace("/manifest/", "/tei/").replace(".json", ".xml")
+                "@id": manifest_map[canvas].replace("/manifest/", "/tei_d/").replace(".json", ".xml")
             }
         ]
     else:
