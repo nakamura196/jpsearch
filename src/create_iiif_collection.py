@@ -1,5 +1,7 @@
 import json
 from SPARQLWrapper import SPARQLWrapper
+import urllib.parse
+import requests
 
 flg = True
 
@@ -11,16 +13,25 @@ while (flg):
 
     print(page)
 
+    unit = 10000
+
     sparql = SPARQLWrapper(endpoint='https://jpsearch.go.jp/rdf/sparql', returnFormat='json')
-    sparql.setQuery("""
+    q = ("""
         SELECT DISTINCT ?url ?label ?provider_label WHERE {
       ?s rdfs:label ?label .
       ?s jps:accessInfo ?ai. ?ai schema:url ?url . ?url rdf:type <http://iiif.io/api/presentation/2#Manifest> .
       ?ai schema:provider ?provider . ?provider rdfs:label ?provider_label .
-    } limit 10000 offset """ + str(10000 * page) + """
+    } limit """+str(unit)+""" offset """ + str(unit * page) + """
     """)
+    # sparql.setQuery(q)
 
-    results = sparql.query().convert()
+    url = "https://jpsearch.go.jp/rdf/sparql?query="+urllib.parse.quote(q)+"&format=json&output=json&results=json"
+
+    r = requests.get(url)
+    # 結果はJSON形式なのでデコードする
+    results = json.loads(r.text)
+
+    # results = sparql.query().convert()
 
     if len(results["results"]["bindings"]) == 0:
         flg = False
