@@ -78,6 +78,8 @@ para = root.find(prefix + "body").find(prefix + "p")
 
 for v, data_v in sorted(texts.items()):
 
+    print(v)
+
     if v > 54:
         continue
 
@@ -85,7 +87,7 @@ for v, data_v in sorted(texts.items()):
 
     surface = None
 
-    pmax = max(data_v)
+    pmax = max(data_v) + 1
     pmin = min(data_v)
     for i in range(pmin, pmax):
 

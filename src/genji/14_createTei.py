@@ -52,6 +52,8 @@ for v, data_v in sorted(texts.items()):
     url = "https://nakamura196.github.io/jpsearch/data/genji/manifest/" + \
         str(v).zfill(2)+".json"
 
+    print(url)
+
     # ----
 
     request = urllib.request.Request(url)
@@ -84,7 +86,7 @@ for v, data_v in sorted(texts.items()):
 
     surface = None
 
-    pmax = max(data_v)
+    pmax = max(data_v)+1
     pmin = min(data_v)
     for i in range(pmin, pmax):
 
